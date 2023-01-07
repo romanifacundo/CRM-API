@@ -31,23 +31,22 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAsync([FromBody] Agente agente)
+        public async Task<ActionResult> AddAsync([FromBody] AgenteCreacionDTO agenteCreacionDTO)
         {
-            var existe = await _context.Agentes.Where(x => x.Nombre == agente.Nombre).Select(a => a).FirstOrDefaultAsync();
+            var existe = await _context.Agentes.Where(x => x.Nombre == agenteCreacionDTO.Nombre).Select(a => a).FirstOrDefaultAsync();
 
             if (existe != null)
             {
-                return BadRequest($"Ya existe un agente con el nombre {agente.Nombre}");
+                return BadRequest($"Ya existe un agente con el nombre {agenteCreacionDTO.Nombre}");
             }
 
-            _context.Add(agente);
+            _context.Add(agenteCreacionDTO);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
 
         [HttpGet("{id}")]
-
         public async Task<ActionResult<AgenteDTO>> GetIdAsync(int id)
         {
             var agente = await _context.Agentes.FirstOrDefaultAsync(x => x.Id == id);
@@ -59,5 +58,18 @@ namespace CRM.Controllers
 
             return _mapper.Map<AgenteDTO>(agente);
         }
+
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<AgenteDTO>> UpdateAsync(AgenteDTO agenteDto)
+        //{
+        //    var agente = _context.Agentes.Where(x => x.Id == agenteDto.Id).Select(x => x.Nombre).FirstOrDefaultAsync();
+
+
+        //    _context.Update(agente);
+        //    _mapper.Map<AgenteDTO>(agente);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok();
+        //}
     }
 }
