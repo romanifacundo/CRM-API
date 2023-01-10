@@ -24,7 +24,7 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ProspectoDTO>> GetAllAsync()
+        public async Task<List<ProspectoDTO>> Get()
         {
             var prospetos = await _context.Prospectos.ToListAsync();
 
@@ -32,7 +32,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddProspetoAsync([FromBody] ProspectoCreacionDTO prospectoCreacionDTO)
+        public async Task<ActionResult> Post([FromBody] ProspectoCreacionDTO prospectoCreacionDTO)
         {
             var existe = await _context.Prospectos.Where(x => x.Name == prospectoCreacionDTO.Name).Select(x => x).FirstOrDefaultAsync();
 
@@ -49,7 +49,7 @@ namespace CRM.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProspectoDTO>> GetIdAsync(int id)
+        public async Task<ActionResult<ProspectoDTO>> GetId(int id)
         {
             var prospecto = await _context.Prospectos.FirstOrDefaultAsync(x => x.Id == id);
 

@@ -23,7 +23,7 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public async Task<List<AgenteDTO>> GetAllAsync()
+        public async Task<List<AgenteDTO>> Get()
         {
             var agente = await _context.Agentes.ToListAsync();
 
@@ -31,7 +31,7 @@ namespace CRM.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAsync([FromBody] AgenteCreacionDTO agenteCreacionDTO)
+        public async Task<ActionResult> Post([FromBody] AgenteCreacionDTO agenteCreacionDTO)
         {
             var existe = await _context.Agentes.Where(x => x.Nombre == agenteCreacionDTO.Nombre).Select(a => a).FirstOrDefaultAsync();
 
@@ -48,7 +48,7 @@ namespace CRM.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AgenteDTO>> GetIdAsync(int id)
+        public async Task<ActionResult<AgenteDTO>> GetId(int id)
         {
             var agente = await _context.Agentes.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -61,7 +61,7 @@ namespace CRM.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<AgenteDTO>> UpdateAsync(AgenteDTO agenteDto)
+        public async Task<ActionResult<AgenteDTO>> Put(AgenteDTO agenteDto)
         {
             var agenteId = await _context.Agentes.Where(x => x.Id == agenteDto.Id).Select(x => x).FirstOrDefaultAsync();
 
