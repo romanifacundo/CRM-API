@@ -51,7 +51,7 @@ namespace CRM.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProspectoDTO>> GetIdAsync(int id)
         {
-            var prospecto = await _context.Prospectos.FirstOrDefaultAsync( x => x.Id == id);
+            var prospecto = await _context.Prospectos.FirstOrDefaultAsync(x => x.Id == id);
 
             if (prospecto == null)
             {

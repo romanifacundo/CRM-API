@@ -12,5 +12,8 @@ namespace CRM.Models
         public string Name { get; set; }
 
         public string UrlPerfil { get; set; }
+
+        //Propiedades de navegación
+        public List<Contacto> Contactos { get; set; }
     }
 }

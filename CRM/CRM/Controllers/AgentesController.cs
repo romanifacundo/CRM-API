@@ -23,11 +23,11 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public async Task<ICollection<AgenteDTO>> GetAllAsync()
+        public async Task<List<AgenteDTO>> GetAllAsync()
         {
             var agente = await _context.Agentes.ToListAsync();
 
-            return _mapper.Map<ICollection<AgenteDTO>>(agente);
+            return _mapper.Map<List<AgenteDTO>>(agente);
         }
 
         [HttpPost]
