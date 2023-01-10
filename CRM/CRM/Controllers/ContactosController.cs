@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CRM.Context;
 using CRM.DTOs;
-using CRM.Migrations;
+using CRM.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,11 +46,12 @@ namespace CRM.Controllers
             {
                 return NotFound("El prospecto no existe");
             }
-            
-            var nuevoContacto = _mapper.Map<Contacto>(contactoCreacionDTO);
-            _context.Add(nuevoContacto);
-            await _context.SaveChangesAsync();
 
+            var contacto = _mapper.Map<Contacto>(contactoCreacionDTO);
+            contacto.ProspectoId = prospectoId;
+
+            _context.Contactos.Add(contacto); 
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }

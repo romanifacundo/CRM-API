@@ -17,6 +17,8 @@ namespace CRM.Utils
             CreateMap<Agente, AgenteDTO>();
             CreateMap<ProspectoCreacionDTO, Prospecto>();
             CreateMap<Prospecto, ProspectoDTO>();
+            CreateMap<ContactoCreacionDTO, Contacto>();
+            CreateMap<Contacto, ContactoDTO>();
         }
     }
 }

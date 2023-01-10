@@ -42,7 +42,7 @@ namespace CRM.Controllers
             }
 
             var prospecto = _mapper.Map<Prospecto>(prospectoCreacionDTO);
-            _context.Add(prospecto);
+            _context.Prospectos.Add(prospecto);
             await _context.SaveChangesAsync();
 
             return Ok();
