@@ -31,21 +31,52 @@ namespace CRM.Controllers
             return _mapper.Map<List<ProspectoDTO>>(prospetos);
         }
 
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] ProspectoCreacionDTO prospectoCreacionDTO)
+        //{
+        //    var existe = await _context.Prospectos.Where(x => x.Name == prospectoCreacionDTO.Name).Select(x => x).FirstOrDefaultAsync();
+
+        //    if (existe != null)
+        //    {
+        //        return BadRequest($"El {prospectoCreacionDTO.Name} ya existe");
+        //    }
+
+        //    var prospecto = _mapper.Map<Prospecto>(prospectoCreacionDTO);
+        //    _context.Prospectos.Add(prospecto);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok();
+        //}
+
+
+        // Asignar Clientes(Prospectos) a Vendedores(Agentes). 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ProspectoCreacionDTO prospectoCreacionDTO)
         {
-            var existe = await _context.Prospectos.Where(x => x.Name == prospectoCreacionDTO.Name).Select(x => x).FirstOrDefaultAsync();
+            if (prospectoCreacionDTO.AgentesIds == null)
+                return BadRequest("No se puede insertar un prospecto sin asignarle al menos un agente");
 
-            if (existe != null)
-            {
-                return BadRequest($"El {prospectoCreacionDTO.Name} ya existe");
-            }
+            // obtengo la intersección entre ids recibidos e ids de la base de datos.
+            var agentesIds = await _context.Agentes.Where(x => prospectoCreacionDTO.AgentesIds.Contains(x.Id)).Select(x => x.Id).ToListAsync();
+            
+            // Con esto me aseguro que los ids que nos envíen realmente existan
+            if (agentesIds.Count != prospectoCreacionDTO.AgentesIds.Count)
+                return BadRequest("Se ingresó al menos un agente que no existe");
 
             var prospecto = _mapper.Map<Prospecto>(prospectoCreacionDTO);
+
+            AsignarOrdenAgentes(prospecto);
+
             _context.Prospectos.Add(prospecto);
             await _context.SaveChangesAsync();
-
             return Ok();
+        }
+
+        // Método de asignación.
+        private void AsignarOrdenAgentes(Prospecto prospecto)
+        {
+            for (int i = 0; i < prospecto.AgentesProspectos.Count; i++)
+                prospecto.AgentesProspectos[i].Orden = i;
         }
 
         [HttpGet("{id}")]
