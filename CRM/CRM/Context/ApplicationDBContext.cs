@@ -14,7 +14,7 @@ namespace CRM.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            //Configurando PK Compuesta AgenteProspecto
+            //Configurando PK Compuesta AgenteProspecto 
             modelBuilder.Entity<AgenteProspecto>().HasKey(x => new { x.AgenteId, x.ProspectoId });
         }
 
