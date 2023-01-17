@@ -95,7 +95,7 @@ namespace CRM.Controllers
         //}
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProspectoDTO>> Get(int id)
+        public async Task<ActionResult<ProspectoConAgentesDTO>> Get(int id)
         {
             var prospecto = await _context.Prospectos.Include(x => x.AgentesProspectos).ThenInclude(x => x.Agente).FirstOrDefaultAsync(x => x.Id == id);
 
@@ -103,7 +103,8 @@ namespace CRM.Controllers
                 return NotFound("Registro no encontrado.");
 
             prospecto.AgentesProspectos = prospecto.AgentesProspectos.OrderBy(x => x.Orden).ToList(); //ordenando la lista por el campo orden
-            return _mapper.Map<ProspectoDTO>(prospecto);
+            
+            return _mapper.Map<ProspectoConAgentesDTO>(prospecto);
         }
     }
 }

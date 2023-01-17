@@ -48,17 +48,16 @@ namespace CRM.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AgenteDTO>> GetId(int id)
+        public async Task<ActionResult<AgenteConProspectosDTO>> GetId(int id)
         {
-            var agente = await _context.Agentes
-                .Include(x => x.AgentesProspectos).ThenInclude(x => x.Prospecto).FirstOrDefaultAsync(x => x.Id == id);
+            var agente = await _context.Agentes.Include(x => x.AgentesProspectos).ThenInclude(x => x.Prospecto).FirstOrDefaultAsync(x => x.Id == id);
 
             if (agente == null)
             {
                 return NotFound("Agente no encontrado.");
             }
 
-            return _mapper.Map<AgenteDTO>(agente);
+            return _mapper.Map<AgenteConProspectosDTO>(agente);
         }
 
         [HttpPut("{id}")]

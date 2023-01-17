@@ -14,14 +14,16 @@ namespace CRM.Utils
         {
             //Aquí van las reglas de mapeo <origen,destino>
             CreateMap<AgenteCreacionDTO, Agente>();
-            CreateMap<Agente, AgenteDTO>()
+            CreateMap<Agente, AgenteDTO>();
+            CreateMap<Agente, AgenteConProspectosDTO>()
                 .ForMember(x => x.Prospectos, options => options.MapFrom(MapFromAgentesProspectosToProspectoDTO));
 
             //CreateMap<ProspectoCreacionDTO, Prospecto>();
             CreateMap<ProspectoCreacionDTO, Prospecto>()
                 .ForMember(x => x.AgentesProspectos, options => options.MapFrom(MapIntToAgenteProspecto));
 
-            CreateMap<Prospecto, ProspectoDTO>()
+            CreateMap<Prospecto, ProspectoDTO>();
+            CreateMap<Prospecto, ProspectoConAgentesDTO>()
                 .ForMember(x => x.Agentes, options => options.MapFrom(MapFromAgentesProspectosToAgenteDTO));
 
             //CreateMap<ContactoCreacionDTO, Contacto>(); 
