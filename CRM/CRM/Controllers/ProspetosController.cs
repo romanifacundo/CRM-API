@@ -97,10 +97,7 @@ namespace CRM.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProspectoDTO>> Get(int id)
         {
-            var prospecto = await _context.Prospectos
-                .Include(x => x.AgentesProspectos)
-                .ThenInclude(x => x.Agente)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var prospecto = await _context.Prospectos.Include(x => x.AgentesProspectos).ThenInclude(x => x.Agente).FirstOrDefaultAsync(x => x.Id == id);
 
             if (prospecto == null)
                 return NotFound("Registro no encontrado.");

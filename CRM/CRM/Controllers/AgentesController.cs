@@ -51,9 +51,7 @@ namespace CRM.Controllers
         public async Task<ActionResult<AgenteDTO>> GetId(int id)
         {
             var agente = await _context.Agentes
-                .Include(x => x.AgentesProspectos)
-                .ThenInclude(x => x.Prospecto)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.AgentesProspectos).ThenInclude(x => x.Prospecto).FirstOrDefaultAsync(x => x.Id == id);
 
             if (agente == null)
             {
