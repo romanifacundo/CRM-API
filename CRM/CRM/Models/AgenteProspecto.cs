@@ -9,6 +9,6 @@
 
         //Propiedades de navegación
         public Agente Agente { get; set; }
-        public Prospecto Prospecto { get; set; }
+        public Prospecto Prospecto { get; set; }  
     }
 }

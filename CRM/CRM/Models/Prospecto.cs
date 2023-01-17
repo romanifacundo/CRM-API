@@ -16,5 +16,5 @@ namespace CRM.Models
         //Propiedades de navegación
         public List<Contacto> Contactos { get; set; }
         public List<AgenteProspecto> AgentesProspectos { get; set; }
-    }
+    } 
 }

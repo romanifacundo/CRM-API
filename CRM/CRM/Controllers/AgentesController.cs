@@ -27,7 +27,7 @@ namespace CRM.Controllers
         {
             var agente = await _context.Agentes.ToListAsync();
 
-            return _mapper.Map<List<AgenteDTO>>(agente);
+            return _mapper.Map<List<AgenteDTO>>(agente); 
         }
 
         [HttpPost]
@@ -50,7 +50,10 @@ namespace CRM.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AgenteDTO>> GetId(int id)
         {
-            var agente = await _context.Agentes.FirstOrDefaultAsync(x => x.Id == id);
+            var agente = await _context.Agentes
+                .Include(x => x.AgentesProspectos)
+                .ThenInclude(x => x.Prospecto)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (agente == null)
             {

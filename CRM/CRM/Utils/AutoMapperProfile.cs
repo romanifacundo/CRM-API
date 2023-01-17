@@ -24,9 +24,9 @@ namespace CRM.Utils
             CreateMap<Prospecto, ProspectoDTO>()
                 .ForMember(x => x.Agentes, options => options.MapFrom(MapFromAgentesProspectosToAgenteDTO));
 
-            //CreateMap<ContactoCreacionDTO, Contacto>();
-            CreateMap<ContactoCreacionDTO, Contacto>();
-            CreateMap<Contacto, ContactoDTO>();
+            //CreateMap<ContactoCreacionDTO, Contacto>(); 
+            CreateMap<ContactoCreacionDTO, Contacto>(); 
+            CreateMap<Contacto, ContactoDTO>(); 
         }
 
         private List<ProspectoDTO> MapFromAgentesProspectosToProspectoDTO(Agente agente, AgenteDTO agenteDTO)
